@@ -29,6 +29,7 @@ admin.site.index_title = "Document Management Admin Portal"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/user/', include('user.urls')),
+    path('api/v1/document-upload/', include('document_upload.urls')),
 ]
 
 # swagger url endpoints setup
