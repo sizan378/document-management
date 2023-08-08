@@ -40,7 +40,8 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-
+    "drf_yasg",  # Swagger documentation
+    "debug_toolbar",  # django debug toolbar package
 ]
     
 LOCAL_APPS = [
@@ -50,6 +51,11 @@ LOCAL_APPS = [
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
+INTERNAL_IPS = [
+    # debug toolbar
+    "0.0.0.0",
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -58,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",  # debug toolbar
 ]
 
 ROOT_URLCONF = 'document_management.urls'
@@ -135,3 +142,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # user model for custom user registration
 AUTH_USER_MODEL = "user.User"
+
+
+
+DEBUG_TOOLBAR_CONFIG = {
+    "INTERCEPT_REDIRECTS": False,
+}
+
+
+def show_toolbar(request):
+    return True
+
+
+DEBUG_TOOLBAR_CONFIG = {
+    # Toolbar options
+    "RESULTS_CACHE_SIZE": 3,
+    "SHOW_COLLAPSED": True,
+    # Panel options
+    "SQL_WARNING_THRESHOLD": 100,  # milliseconds
+    "SHOW_TOOLBAR_CALLBACK": show_toolbar,
+}
