@@ -26,4 +26,24 @@ class AdminDocumentDetailsView(ListAPIView):
     # permission_classes = [IsAdminUser]
     serializer_class = DocumentDetailsSerializer
     queryset = DocumentUploadModel.objects.all()
+
+
+class UserDocumentDetailsView(ListAPIView):
+    # permission_classes = [IsAuthenticated]
+    serializer_class = DocumentUploadSerializer
+
+    def get(self, request):
+        # payload = tokenValidation(request)
+        # user_id = payload["user_id"]
+        user_id = 1
+
+        queryset = DocumentUploadModel.objects.filter(user=user_id)
+
+        return Response(queryset, status=status.HTTP_200_OK)
+   
+
+class AdminDocumentRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+    # permission_classes = [IsAdminUser, IsAuthenticated]
+    serializer_class = DocumentUploadSerializer
+    queryset = DocumentUploadModel.objects.all()
     
