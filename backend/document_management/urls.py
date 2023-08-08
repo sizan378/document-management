@@ -6,6 +6,7 @@ from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework.permissions import IsAdminUser
+from rest_framework_simplejwt import views as jwt_views
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -28,6 +29,7 @@ admin.site.index_title = "Document Management Admin Portal"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('api/v1/user/', include('user.urls')),
     path('api/v1/document-upload/', include('document_upload.urls')),
 ]
