@@ -1,8 +1,9 @@
 # JWT CONFIGURATION
+import datetime
 jwt_key = "JWT_SECRET_KEY"
 JWT_SETTINGS = {
-    'ACCESS_TOKEN_LIFETIME': 100,
-    'REFRESH_TOKEN_LIFETIME': 150,
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=100),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(minutes=150),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': True,
@@ -29,8 +30,8 @@ JWT_SETTINGS = {
     'JTI_CLAIM': 'jti',
 
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    'SLIDING_TOKEN_LIFETIME': 500,
-    'SLIDING_TOKEN_REFRESH_LIFETIME': 500,
+    'SLIDING_TOKEN_LIFETIME': datetime.timedelta(minutes=200),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': datetime.timedelta(minutes=250),
 
 
 }

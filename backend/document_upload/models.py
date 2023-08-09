@@ -1,8 +1,7 @@
-from django.conf import settings
 from django.db import models
-from django.utils.html import mark_safe
 
 from django.core.validators import FileExtensionValidator
+from user.models import User
 
 
 class TimeStampedModel(models.Model):
@@ -17,8 +16,8 @@ class DocumentUploadModel(TimeStampedModel):
     title = models.CharField(max_length=200)
     description = models.TextField()
     upload_date = models.DateTimeField()
-    format = models.FileField(upload_to="images/uploads/%Y/%m/%d", validators=[FileExtensionValidator( ['pdf', 'docx', 'txt'] ) ])
-    user = models.IntegerField()
+    format = models.FileField(upload_to="images/uploads/%Y/%m/%d", validators=[FileExtensionValidator( ['pdf', 'docx', 'txt']) ])
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
 
 
     def __str__(self):
