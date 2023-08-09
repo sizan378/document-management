@@ -18,7 +18,7 @@ class DocumentUploadSerializer(ModelSerializer):
 
 
 class DocumentDetailsSerializer(ModelSerializer):
-    # user = UserDetailsSerializer()
+    user = UserDetailsSerializer()
     class Meta:
         model = DocumentUploadModel
         fields = [

@@ -10,7 +10,7 @@ from utils.utils import tokenValidation
 
 
 class UserDocumentUploadView(CreateAPIView):
-    # permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser]
     serializer_class = DocumentUploadSerializer
     
     def post(self, request, *args, **kwargs):
@@ -23,27 +23,25 @@ class UserDocumentUploadView(CreateAPIView):
 
 
 class AdminDocumentDetailsView(ListAPIView):
-    # permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser]
     serializer_class = DocumentDetailsSerializer
     queryset = DocumentUploadModel.objects.all()
 
 
 class UserDocumentDetailsView(ListAPIView):
-    # permission_classes = [IsAuthenticated]
-    serializer_class = DocumentUploadSerializer
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        # payload = tokenValidation(request)
-        # user_id = payload["user_id"]
-        user_id = 1
+        payload = tokenValidation(request)
+        user_id = payload["user_id"]
 
         queryset = DocumentUploadModel.objects.filter(user=user_id)
-
-        return Response(queryset, status=status.HTTP_200_OK)
+        serializer = DocumentDetailsSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
    
 
 class AdminDocumentRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
-    # permission_classes = [IsAdminUser, IsAuthenticated]
+    permission_classes = [IsAdminUser, IsAuthenticated]
     serializer_class = DocumentUploadSerializer
     queryset = DocumentUploadModel.objects.all()
     
